@@ -12,7 +12,7 @@ const RepoSearch = () => {
   const {searchValue, sortOption,
     searchResults, setSearchResults,
     setSearchResultLanguages, selectedSearchResultLanguage,
-    setSelectedSearchResultLanguage
+    setSelectedSearchResultLanguage, setIsLoadingRepos
   } = useContext(RepoSearchContext);
   // when we get a new batch of results, we should determine which languages are available to us to filter by
   const extractLanguagesFromResults = (resultItems) => {
@@ -27,23 +27,30 @@ const RepoSearch = () => {
   };
 
   const filterSearchResultsByLanguage = () => {
-    return searchResults.filter(result => result.language === selectedSearchResultLanguage);
+    if (selectedSearchResultLanguage) {
+      return searchResults.filter(result => result.language === selectedSearchResultLanguage);
+    } else {
+      return searchResults;
+    }
   };
 
   const getSearchResults = async () => {
     if (searchValue.length) {
       const octokit = new Octokit();
       try {
+        setIsLoadingRepos(true);
         const resp = await octokit.request('GET /search/repositories',
   {q: searchValue, sort: sortOption});
 
         setSearchResults(resp.data.items);
+        setIsLoadingRepos(false);
         // below: reset the error and selectedSearchResultLanguage on a new search
         setSearchError(null);
         setSelectedSearchResultLanguage(null);
         extractLanguagesFromResults(resp.data.items);
       } catch (error) {
         console.error(error);
+        setIsLoadingRepos(false);
         setSearchError('Something went wrong with retrieving your search results. Please try again.');
       }
     } else {
@@ -51,10 +58,6 @@ const RepoSearch = () => {
       setSearchError('Please enter a valid search value');
     }
   };
-
-  const filteredSearchResults = selectedSearchResultLanguage ?
-    filterSearchResultsByLanguage() :
-    searchResults;
 
   return (
     <div className="repo-search-page">
@@ -64,7 +67,7 @@ const RepoSearch = () => {
       />
       {Boolean(searchResults.length) && <RepoFilter/>
       }
-      <RepoSearchBody/>
+      <RepoSearchBody searchResults={filterSearchResultsByLanguage()}/>
     </div>
   );
 };

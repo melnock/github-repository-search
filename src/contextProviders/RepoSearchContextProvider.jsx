@@ -5,7 +5,8 @@ export const RepoSearchContext = createContext({
   sortOption: '',
   searchResults: [],
   searchResultLanguages: {},
-  selectedSearchResultLanguage: null
+  selectedSearchResultLanguage: null,
+  isLoadingRepos: false
 });
 
 // Using a context provider to keep track of the search value and results
@@ -16,6 +17,7 @@ export const RepoSearchContextWrapper = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchResultLanguages, setSearchResultLanguages] = useState({});
   const [selectedSearchResultLanguage, setSelectedSearchResultLanguage] = useState(null);
+  const [isLoadingRepos, setIsLoadingRepos] = useState(false);
 
   return (
     <RepoSearchContext.Provider
@@ -24,7 +26,8 @@ export const RepoSearchContextWrapper = () => {
         sortOption, setSortOption,
         searchResults, setSearchResults,
         searchResultLanguages, setSearchResultLanguages,
-        selectedSearchResultLanguage, setSelectedSearchResultLanguage
+        selectedSearchResultLanguage, setSelectedSearchResultLanguage,
+        isLoadingRepos, setIsLoadingRepos
       }}
     >
       <App/>

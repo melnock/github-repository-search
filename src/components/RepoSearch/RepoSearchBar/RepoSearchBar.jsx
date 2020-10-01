@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {string, func} from 'prop-types';
 import './RepoSearchBar.scss';
+import {RepoSearchContext} from "../../../contextProviders/RepoSearchContextProvider";
 
 const RepoSearchBar = ({
-   searchValue,
-   setSearchValue,
-   setSortOption,
    getSearchResults,
    searchError
 }) => {
+  const {
+    searchValue,
+    setSearchValue,
+    setSortOption
+  } = useContext(RepoSearchContext);
   const handleSetSearchValue = event => {
     const value = event.target.value;
     setSearchValue(value);
@@ -44,9 +47,6 @@ const RepoSearchBar = ({
 
 RepoSearchBar.propTypes = {
   getSearchResults: func.isRequired,
-  searchValue: string.isRequired,
-  setSearchValue: func.isRequired,
-  setSortOption: func.isRequired,
   searchError: string
 };
 

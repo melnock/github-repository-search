@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './RepoFilter.scss';
-import {objectOf, string, func} from "prop-types";
+import {RepoSearchContext} from "../../../contextProviders/RepoSearchContextProvider";
 
-const RepoFilter = ({
-  searchResultLanguages,
-  setSelectedSearchResultLanguage
-}) => {
+const RepoFilter = () => {
+  const {
+    searchResultLanguages,
+    selectedSearchResultLanguage,
+    setSelectedSearchResultLanguage
+  } = useContext(RepoSearchContext);
   const handleSetSearchFilter = event => {
     const value = event.target.value;
     setSelectedSearchResultLanguage(value);
@@ -13,22 +15,23 @@ const RepoFilter = ({
 
   const SearchFilters = Object.keys(searchResultLanguages).map( language => {
     return (
-      <option value={language}>{language}</option>
+      <option key={language} value={language} selected={selectedSearchResultLanguage === language}>
+        {language}
+      </option>
     );
   });
 
+  // default to selecting all languages, which would be a null filter
+  SearchFilters.unshift(<option value={null} selected={!selectedSearchResultLanguage}>All</option>);
+
   return (
     <div className="repo-search-filters">
+      <label>Filter by language: </label>
       <select id="filter-options" name="filter-options" onChange={handleSetSearchFilter}>
         {SearchFilters}
       </select>
     </div>
   );
-};
-
-RepoFilter.propTypes = {
-  searchResultLanguages: objectOf(string).isRequired,
-  setSelectedSearchResultLanguage: func.isRequired
 };
 
 export default RepoFilter;
