@@ -14,11 +14,11 @@ const RepoDetail = ({location}) => {
       <div className="search-result-details">
         <img alt={searchItem.owner.login + 'avatar'} src={searchItem.owner.avatar_url}/>
         <p className="repo-detail">
-          Owner: {searchItem.owner ? searchItem.owner.login : 'unknown'}
+          <label>Owner:</label> {searchItem.owner ? searchItem.owner.login : 'unknown'}
         </p>
-        <p className="repo-detail"> Description: {searchItem.description} </p>
-        <p className="repo-detail"> Stars: {searchItem.stargazers_count} </p>
-        <p className="repo-detail"> Language: {searchItem.language} </p>
+        <p className="repo-detail"> <label>Description:</label> {searchItem.description} </p>
+        <p className="repo-detail"> <label>Stars:</label> {searchItem.stargazers_count} </p>
+        <p className="repo-detail"> <label>Language:</label> {searchItem.language} </p>
       </div>
     </div>
   );

@@ -50,6 +50,9 @@
       margin: 10px;
     }
     p {
+      label {
+        font-weight: bold;
+      }
       width: 100%;
       height: fit-content;
       min-height: 20px;
