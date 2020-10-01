@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import RepoSearchBar from './RepoSearchBar/RepoSearchBar';
 import RepoSearchBody from "./RepoSearchBody/RepoSearchBody";
+import RepoFilter from "./RepoFilter/RepoFilter";
 
 import { Octokit } from "@octokit/core"
 
@@ -15,13 +16,16 @@ const RepoSearch = () => {
 
   console.log(searchValue);
   // when we get a new batch of results, we should determine which languages are available to us to filter by
-  const extractLanguagesFromResults = () => {
+  const extractLanguagesFromResults = (resultItems) => {
     const languagesObj = {};
-    searchResults.forEach(result => {
+    console.log(resultItems);
+    resultItems.forEach(result => {
+      console.log('----', result);
       if (!languagesObj[result.language]) {
         languagesObj[result.language] = result.language
       }
     });
+    console.log(languagesObj);
     setSearchResultLanguages(languagesObj);
   };
 
@@ -36,11 +40,11 @@ const RepoSearch = () => {
         const resp = await octokit.request('GET /search/repositories',
   {q: searchValue, sort: sortOption});
 
-        setSearchResults(resp.data.items);
+        await setSearchResults(resp.data.items);
         // below: reset the error and selectedSearchResultLanguage on a new search
         setSearchError(null);
-        selectedSearchResultLanguage(null);
-        extractLanguagesFromResults()
+        setSelectedSearchResultLanguage(null);
+        extractLanguagesFromResults(resp.data.items);
       } catch (error) {
         console.error(error);
         setSearchError('Something went wrong with retrieving your search results. Please try again.');
@@ -63,9 +67,12 @@ const RepoSearch = () => {
         setSortOption={setSortOption}
         getSearchResults={getSearchResults}
         searchError={searchError}
+      />
+      {Boolean(searchResults.length) && <RepoFilter
         searchResultLanguages={searchResultLanguages}
         setSelectedSearchResultLanguage={setSelectedSearchResultLanguage}
-      />
+        />
+      }
       <RepoSearchBody searchResults={filteredSearchResults}/>
     </div>
   );

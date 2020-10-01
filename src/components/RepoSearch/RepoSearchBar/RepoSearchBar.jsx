@@ -33,7 +33,7 @@ const RepoSearchBar = ({
         placeholder="Input your search parameters"
       />
       <select id="sort-options" name="sort-options" onChange={handleSetSortOption}>
-        <option value="" selected>Best Match</option>
+        <option value="">Best Match</option>
         <option value="stars">Stars</option>
       </select>
       <button onClick={handleSubmitSearch}> SEARCH </button>
