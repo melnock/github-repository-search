@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 
 import RepoSearchBar from './RepoSearchBar/RepoSearchBar';
 import RepoSearchBody from "./RepoSearchBody/RepoSearchBody";
 import RepoFilter from "./RepoFilter/RepoFilter";
 
 import { Octokit } from "@octokit/core"
+import {RepoSearchContext} from "../../contextProviders/RepoSearchContextProvider";
 
 const RepoSearch = () => {
-  const [searchValue, setSearchValue] = useState('');
   const [searchError, setSearchError] = useState(null);
-  const [sortOption, setSortOption] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchResultLanguages, setSearchResultLanguages] = useState({});
-  const [selectedSearchResultLanguage, setSelectedSearchResultLanguage] = useState(null);
-
+  const {searchValue, sortOption,
+    searchResults, setSearchResults,
+    setSearchResultLanguages, selectedSearchResultLanguage,
+    setSelectedSearchResultLanguage
+  } = useContext(RepoSearchContext);
   // when we get a new batch of results, we should determine which languages are available to us to filter by
   const extractLanguagesFromResults = (resultItems) => {
     const languagesObj = {};
@@ -59,18 +59,12 @@ const RepoSearch = () => {
   return (
     <div className="repo-search-page">
       <RepoSearchBar
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        setSortOption={setSortOption}
         getSearchResults={getSearchResults}
         searchError={searchError}
       />
-      {Boolean(searchResults.length) && <RepoFilter
-        searchResultLanguages={searchResultLanguages}
-        setSelectedSearchResultLanguage={setSelectedSearchResultLanguage}
-        />
+      {Boolean(searchResults.length) && <RepoFilter/>
       }
-      <RepoSearchBody searchResults={filteredSearchResults}/>
+      <RepoSearchBody/>
     </div>
   );
 };
