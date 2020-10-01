@@ -9,7 +9,10 @@ const RepoFilter = () => {
     setSelectedSearchResultLanguage
   } = useContext(RepoSearchContext);
   const handleSetSearchFilter = event => {
-    const value = event.target.value;
+    let value = event.target.value;
+    if (value === "all") {
+      value = null;
+    }
     setSelectedSearchResultLanguage(value);
   };
 
@@ -22,7 +25,7 @@ const RepoFilter = () => {
   });
 
   // default to selecting all languages, which would be a null filter
-  SearchFilters.unshift(<option value={null} selected={!selectedSearchResultLanguage}>All</option>);
+  SearchFilters.unshift(<option value="all" selected={!selectedSearchResultLanguage}>All</option>);
 
   return (
     <div className="repo-search-filters">

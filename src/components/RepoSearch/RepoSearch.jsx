@@ -27,6 +27,7 @@ const RepoSearch = () => {
   };
 
   const filterSearchResultsByLanguage = () => {
+    console.log(selectedSearchResultLanguage);
     if (selectedSearchResultLanguage) {
       return searchResults.filter(result => result.language === selectedSearchResultLanguage);
     } else {
