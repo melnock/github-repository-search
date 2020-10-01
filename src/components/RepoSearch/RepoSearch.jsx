@@ -8,7 +8,7 @@ import { Octokit } from "@octokit/core"
 const RepoSearch = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchError, setSearchError] = useState(null);
-  const [searchSort, setSearchSort] = useState('');
+  const [sortOption, setSortOption] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   console.log(searchValue);
 
@@ -16,7 +16,8 @@ const RepoSearch = () => {
     if (searchValue.length) {
       const octokit = new Octokit();
       try {
-        const resp = await octokit.request('GET /search/repositories', {q: searchValue});
+        const resp = await octokit.request('GET /search/repositories',
+  {q: searchValue, sort: sortOption});
         console.log(resp.data);
         setSearchResults(resp.data.items);
         setSearchError(null);
@@ -33,6 +34,7 @@ const RepoSearch = () => {
       <RepoSearchBar
         searchValue={searchValue}
         setSearchValue={setSearchValue}
+        setSortOption={setSortOption}
         getSearchResults={getSearchResults}
         searchError={searchError}
       />

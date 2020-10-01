@@ -11,10 +11,8 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  input {
+  input, select {
     padding: 10px 20px;
-    &:focus {
-
-    }
+    margin: 0 10px;
   }
 }
