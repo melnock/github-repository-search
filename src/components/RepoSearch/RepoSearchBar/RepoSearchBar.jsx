@@ -1,4 +1,5 @@
 import React from 'react';
+import {string, func} from 'prop-types';
 import './RepoSearchBar.scss';
 
 const RepoSearchBar = ({
@@ -39,6 +40,18 @@ const RepoSearchBar = ({
       <button onClick={handleSubmitSearch}> SEARCH </button>
     </div>
   );
+};
+
+RepoSearchBar.propTypes = {
+  getSearchResults: func.isRequired,
+  searchValue: string.isRequired,
+  setSearchValue: func.isRequired,
+  setSortOption: func.isRequired,
+  searchError: string
+};
+
+RepoSearchBar.defaultProps = {
+  searchError: null
 };
 
 export default RepoSearchBar;

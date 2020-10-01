@@ -1,5 +1,6 @@
 import React from 'react';
 import './RepoFilter.scss';
+import {objectOf, string, func} from "prop-types";
 
 const RepoFilter = ({
   searchResultLanguages,
@@ -23,6 +24,11 @@ const RepoFilter = ({
       </select>
     </div>
   );
+};
+
+RepoFilter.propTypes = {
+  searchResultLanguages: objectOf(string).isRequired,
+  setSelectedSearchResultLanguage: func.isRequired
 };
 
 export default RepoFilter;

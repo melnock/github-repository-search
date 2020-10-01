@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link, withRouter} from "react-router-dom";
+import {Link, withRouter} from 'react-router-dom';
+import {object} from 'prop-types';
 import './RepoDetail.scss';
 
 const RepoDetail = ({location}) => {
@@ -21,6 +22,10 @@ const RepoDetail = ({location}) => {
       </div>
     </div>
   );
+};
+
+RepoDetail.propTypes = {
+  location: object.isRequired
 };
 
 export default withRouter(RepoDetail);

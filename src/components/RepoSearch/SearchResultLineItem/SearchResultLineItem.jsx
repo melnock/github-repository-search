@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom";
+import {shape, number, string} from 'prop-types';
 import './SearchResultLineItem.scss';
 
 const SearchResultLineItem = ({searchItem}) => {
@@ -12,9 +13,23 @@ const SearchResultLineItem = ({searchItem}) => {
         <div className="search-result-details">
           Owner: {searchItem.owner && searchItem.owner.login}
         </div>
+        <div className="search-result-details">
+          Stars: {searchItem.stargazers_count}
+        </div>
       </Link>
     </div>
   );
+};
+
+SearchResultLineItem.propType = {
+  searchItem: shape({
+    id: number,
+    name: string,
+    stargazers_count: number,
+    owner: {
+      login: string
+    }
+  })
 };
 
 export default withRouter(SearchResultLineItem);

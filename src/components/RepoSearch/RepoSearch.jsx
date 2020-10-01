@@ -14,18 +14,15 @@ const RepoSearch = () => {
   const [searchResultLanguages, setSearchResultLanguages] = useState({});
   const [selectedSearchResultLanguage, setSelectedSearchResultLanguage] = useState(null);
 
-  console.log(searchValue);
   // when we get a new batch of results, we should determine which languages are available to us to filter by
   const extractLanguagesFromResults = (resultItems) => {
     const languagesObj = {};
-    console.log(resultItems);
     resultItems.forEach(result => {
-      console.log('----', result);
-      if (!languagesObj[result.language]) {
+      // verify that we don't input duplicates and that we don't input nulls
+      if (!languagesObj[result.language] && result.language) {
         languagesObj[result.language] = result.language
       }
     });
-    console.log(languagesObj);
     setSearchResultLanguages(languagesObj);
   };
 
@@ -40,7 +37,7 @@ const RepoSearch = () => {
         const resp = await octokit.request('GET /search/repositories',
   {q: searchValue, sort: sortOption});
 
-        await setSearchResults(resp.data.items);
+        setSearchResults(resp.data.items);
         // below: reset the error and selectedSearchResultLanguage on a new search
         setSearchError(null);
         setSelectedSearchResultLanguage(null);

@@ -2,6 +2,7 @@ import React from 'react';
 import './RepoSearchBody.scss';
 
 import SearchResultLineItem from "../SearchResultLineItem/SearchResultLineItem";
+import {arrayOf, object} from "prop-types";
 
 const RepoSearchBody = ({searchResults}) => {
   const SearchResults = searchResults.map( searchItem => {
@@ -13,6 +14,10 @@ const RepoSearchBody = ({searchResults}) => {
       {SearchResults}
     </div>
   );
+};
+
+RepoSearchBody.propTypes = {
+  searchResults: arrayOf(object).isRequired
 };
 
 export default RepoSearchBody;
