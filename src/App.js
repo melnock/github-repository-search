@@ -7,7 +7,7 @@ import RepoDetail from "./components/RepoDetail/RepoDetail";
 function App() {
   return (
     <div className="App">
-      <Route path="/" component={RepoSearch}/>
+      <Route path="/" exact component={RepoSearch}/>
       <Route path="/repo/:id" component={RepoDetail}/>
     </div>
   );

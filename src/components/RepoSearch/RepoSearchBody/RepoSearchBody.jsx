@@ -1,10 +1,11 @@
 import React from 'react';
+import './RepoSearchBody.scss';
 
 import SearchResultLineItem from "../SearchResultLineItem/SearchResultLineItem";
 
 const RepoSearchBody = ({searchResults}) => {
   const SearchResults = searchResults.map( searchItem => {
-    return (<SearchResultLineItem searchItem={searchItem}/>);
+    return (<SearchResultLineItem key={searchItem.id} searchItem={searchItem}/>);
   });
 
   return (

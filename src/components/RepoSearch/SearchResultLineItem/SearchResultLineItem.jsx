@@ -1,14 +1,19 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom";
+import './SearchResultLineItem.scss';
 
-const SearchResultLineItem = ({searchResult}) => {
+const SearchResultLineItem = ({searchItem}) => {
   return (
-    <Link className="search-result-line-item" to={`/repo/${searchResult.id}`}>
-      <h3>{searchResult.name}</h3>
-      <div className="search-result-details">
-        {searchResult.owner && searchResult.owner.login}
-      </div>
-    </Link>
+    <div className="search-result-line-item">
+      <Link
+        className="search-result-link"
+        to={{pathname:`/repo/${searchItem.id}`, state: {searchItem}}}>
+        <h3>{searchItem.name}</h3>
+        <div className="search-result-details">
+          Owner: {searchItem.owner && searchItem.owner.login}
+        </div>
+      </Link>
+    </div>
   );
 };
 

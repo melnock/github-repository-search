@@ -1,0 +1,24 @@
+.search-result-line-item {
+  width: 100%;
+  max-width: 500px;
+  height: 50px;
+  box-shadow: 2px 2px 4px 2px rgba(0,0,0, .2);
+  border-radius: 5px;
+  background: white;
+  display: flex;
+  align-items: center;
+  margin: 10px auto;
+  padding: 10px 30px;
+  .search-result-link{
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    h3, div {
+      color: black;
+      width: 100%;
+      margin: 3px 0;
+    }
+  }
+}

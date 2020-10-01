@@ -16,9 +16,10 @@ const RepoSearch = () => {
     if (searchValue.length) {
       const octokit = new Octokit();
       try {
-        const resp = await octokit.request('GET /search/repositories', searchOptions);
-        console.log(resp);
-        setSearchResults(resp.data);
+        const resp = await octokit.request('GET /search/repositories', {q: searchValue});
+        console.log(resp.data);
+        setSearchResults(resp.data.items);
+        setSearchError(null);
       } catch (error) {
         setSearchError('something went wrong with retrieving your search results');
       }
