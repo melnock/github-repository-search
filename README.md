@@ -7,6 +7,8 @@ There are two pages:
 
 Built with React and SASS.
 
+To run the project, clone the repo to you local machine, run `npm install` and choose one of the options below:
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -34,7 +34,8 @@ const RepoSearchBar = ({
 
   return (
     <div className="repo-search-bar" onKeyPress={listenForEnterPress}>
-      <h1>Repository Search</h1>
+      <h1>GitHub Repository Search</h1>
+      <p>Find repositories that match your desired search parameters.</p>
       {searchError && <p className="searching-error">{searchError}</p>}
       <input
         type="text"
@@ -42,6 +43,7 @@ const RepoSearchBar = ({
         value={searchValue}
         placeholder="Input your search parameters"
       />
+      <label>Sort:</label>
       <select id="sort-options" name="sort-options" onChange={handleSetSortOption}>
         <option value="">Best Match</option>
         <option value="stars">Stars</option>
