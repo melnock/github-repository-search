@@ -10,6 +10,7 @@ export const RepoSearchContext = createContext({
 });
 
 // Using a context provider to keep track of the search value and results
+// through page changes, without the overhead of redux
 export const RepoSearchContextWrapper = () => {
 
   const [searchValue, setSearchValue] = useState('');

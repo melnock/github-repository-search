@@ -14,7 +14,9 @@ const RepoSearch = () => {
     setSearchResultLanguages, selectedSearchResultLanguage,
     setSelectedSearchResultLanguage, setIsLoadingRepos
   } = useContext(RepoSearchContext);
-  // when we get a new batch of results, we should determine which languages are available to us to filter by
+
+  // when we get a new batch of results, we should determine which languages are available
+  // to us to filter by
   const extractLanguagesFromResults = (resultItems) => {
     const languagesObj = {};
     resultItems.forEach(result => {
@@ -27,7 +29,6 @@ const RepoSearch = () => {
   };
 
   const filterSearchResultsByLanguage = () => {
-    console.log(selectedSearchResultLanguage);
     if (selectedSearchResultLanguage) {
       return searchResults.filter(result => result.language === selectedSearchResultLanguage);
     } else {

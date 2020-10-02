@@ -7,6 +7,7 @@ import LoadingState from "../../LoadingState";
 import {arrayOf, object} from "prop-types";
 import {RepoSearchContext} from "../../../contextProviders/RepoSearchContextProvider";
 
+// this file displays the sorted, filtered results based off the string searched
 const RepoSearchBody = ({searchResults}) => {
   const {isLoadingRepos} = useContext(RepoSearchContext);
   if (isLoadingRepos) {

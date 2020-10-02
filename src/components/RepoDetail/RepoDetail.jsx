@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom';
 import {object} from 'prop-types';
 import './RepoDetail.scss';
 
+// this file displays the details per repo including the user's profile image
 const RepoDetail = ({location}) => {
   const {searchItem} = location.state;
   return (

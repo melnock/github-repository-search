@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import './RepoFilter.scss';
 import {RepoSearchContext} from "../../../contextProviders/RepoSearchContextProvider";
 
+// this file builds the dropdown for the filtering by language
 const RepoFilter = () => {
   const {
     searchResultLanguages,

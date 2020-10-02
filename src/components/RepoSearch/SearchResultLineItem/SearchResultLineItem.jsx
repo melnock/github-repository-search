@@ -3,6 +3,7 @@ import {Link, withRouter} from "react-router-dom";
 import {shape, number, string} from 'prop-types';
 import './SearchResultLineItem.scss';
 
+// this file makes the individual repo line items
 const SearchResultLineItem = ({searchItem}) => {
   return (
     <div className="search-result-line-item">

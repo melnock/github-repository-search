@@ -3,6 +3,8 @@ import {string, func} from 'prop-types';
 import './RepoSearchBar.scss';
 import {RepoSearchContext} from "../../../contextProviders/RepoSearchContextProvider";
 
+// this file builds the components for the searching and sorting
+// sorting options are by best match or by number of stars
 const RepoSearchBar = ({
    getSearchResults,
    searchError
@@ -22,10 +24,6 @@ const RepoSearchBar = ({
     setSortOption(value);
   };
 
-  const handleSubmitSearch = () => {
-    getSearchResults();
-  };
-
   return (
     <div className="repo-search-bar">
       <h1>Repository Search</h1>
@@ -40,7 +38,7 @@ const RepoSearchBar = ({
         <option value="">Best Match</option>
         <option value="stars">Stars</option>
       </select>
-      <button onClick={handleSubmitSearch}> SEARCH </button>
+      <button onClick={getSearchResults}> SEARCH </button>
     </div>
   );
 };
