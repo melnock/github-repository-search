@@ -8,6 +8,7 @@ function App() {
   return (
     <div className="App">
       <Route path="/" exact component={RepoSearch}/>
+      <Route path="/searchResult/:sentSearchValue" exact component={RepoSearch}/>
       <Route path="/repo/:id" component={RepoDetail}/>
     </div>
   );

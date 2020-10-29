@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react';
-
+import React, {useContext, useEffect, useState} from 'react';
+import {useHistory, useParams} from 'react-router-dom';
 import RepoSearchBar from './RepoSearchBar/RepoSearchBar';
 import RepoSearchBody from "./RepoSearchBody/RepoSearchBody";
 import RepoFilter from "./RepoFilter/RepoFilter";
@@ -9,13 +9,27 @@ import {RepoSearchContext} from "../../contextProviders/RepoSearchContextProvide
 
 const RepoSearch = () => {
   const [searchError, setSearchError] = useState(null);
-  const {searchValue, sortOption,
+  const {searchValue, sortOption, setSearchValue,
     searchResults, setSearchResults,
     setSearchResultLanguages, selectedSearchResultLanguage,
     setSelectedSearchResultLanguage, setIsLoadingRepos
   } = useContext(RepoSearchContext);
+  const history = useHistory();
+  const {sentSearchValue} = useParams();
 
-  // when we get a new batch of results, we should determine which languages are available
+  const setSearchValueOnMount = () => {
+    setSearchValue(sentSearchValue);
+    getSearchResults(sentSearchValue);
+  };
+
+  // if a user inputs a route with a searchValue, set it on mount and get results
+  useEffect(() => {
+    if (sentSearchValue) {
+      setSearchValueOnMount()
+    }
+  }, []);
+
+  //when we get a new batch of results, we should determine which languages are available
   // to us to filter by
   const extractLanguagesFromResults = (resultItems) => {
     const languagesObj = {};
@@ -36,13 +50,14 @@ const RepoSearch = () => {
     }
   };
 
-  const getSearchResults = async () => {
-    if (searchValue.length) {
+  const getSearchResults = async (searchValueOverride = null) => {
+    if (searchValue.length || (searchValueOverride && searchValueOverride.length)) {
       const octokit = new Octokit();
       try {
+        const searchValueForApiRequest = searchValueOverride ? searchValueOverride : searchValue;
         setIsLoadingRepos(true);
         const resp = await octokit.request('GET /search/repositories',
-  {q: searchValue, sort: sortOption});
+  {q: searchValueForApiRequest, sort: sortOption});
 
         setSearchResults(resp.data.items);
         setIsLoadingRepos(false);
@@ -50,6 +65,9 @@ const RepoSearch = () => {
         setSearchError(null);
         setSelectedSearchResultLanguage(null);
         extractLanguagesFromResults(resp.data.items);
+        if (!searchValueOverride) {
+          history.push('/searchResult/' + searchValue);
+        }
       } catch (error) {
         console.error(error);
         setIsLoadingRepos(false);

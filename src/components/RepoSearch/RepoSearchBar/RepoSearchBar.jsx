@@ -24,7 +24,7 @@ const RepoSearchBar = ({
     setSortOption(value);
   };
 
-  // because oof how the form is set up, listening for the enter key to get results
+  // because of how the form is set up, listening for the enter key to get results
   // needs to be handled synthetically.
   const listenForEnterPress = event => {
     if (event.key === 'Enter') {
