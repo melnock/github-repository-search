@@ -7,7 +7,9 @@ const RepoFilter = () => {
   const {
     searchResultLanguages,
     selectedSearchResultLanguage,
-    setSelectedSearchResultLanguage
+    setSelectedSearchResultLanguage,
+    setSortByPushedAt,
+    sortByPushedAt,
   } = useContext(RepoSearchContext);
   const handleSetSearchFilter = event => {
     let value = event.target.value;
@@ -16,6 +18,26 @@ const RepoFilter = () => {
     }
     setSelectedSearchResultLanguage(value);
   };
+
+  const handleSortByPushedAt = event => {
+    let value = event.target.value;
+    if (value === "None") {
+      value = null;
+    }
+    setSortByPushedAt(value);
+  };
+
+  const sortOptions = [
+    <option key='None' value="None">
+      None
+    </option>,
+    <option key={'Most Recent'} value={'Most Recent'}>
+      Most Recent
+    </option>,
+    <option key={'Longest Without Love'} value={'Longest Without Love'}>
+      Longest Without Love
+    </option>
+ ]
 
   const SearchFilters = Object.keys(searchResultLanguages).map( language => {
     return (
@@ -38,6 +60,15 @@ const RepoFilter = () => {
         defaultValue={selectedSearchResultLanguage}
       >
         {SearchFilters}
+      </select>
+      <label>Sort by last updated: </label>
+      <select
+        id="sort-options"
+        name="sort-options"
+        onChange={handleSortByPushedAt}
+        defaultValue={sortByPushedAt}
+      >
+        {sortOptions}
       </select>
     </div>
   );

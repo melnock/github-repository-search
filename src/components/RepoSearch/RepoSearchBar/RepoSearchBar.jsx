@@ -48,7 +48,7 @@ const RepoSearchBar = ({
         <option value="">Best Match</option>
         <option value="stars">Stars</option>
       </select>
-      <button onClick={getSearchResults}> SEARCH </button>
+      <button onClick={() => getSearchResults()}> SEARCH </button>
     </div>
   );
 };

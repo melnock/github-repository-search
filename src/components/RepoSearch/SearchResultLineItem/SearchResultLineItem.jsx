@@ -17,6 +17,9 @@ const SearchResultLineItem = ({searchItem}) => {
         <div className="search-result-details">
           Stars: {searchItem.stargazers_count}
         </div>
+        <div className="search-result-details">
+          Pushed At: {searchItem.pushed_at}
+        </div>
       </Link>
     </div>
   );

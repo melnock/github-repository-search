@@ -18,6 +18,7 @@ export const RepoSearchContextWrapper = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchResultLanguages, setSearchResultLanguages] = useState({});
   const [selectedSearchResultLanguage, setSelectedSearchResultLanguage] = useState(null);
+  const [sortByPushedAt, setSortByPushedAt] = useState('None');
   const [isLoadingRepos, setIsLoadingRepos] = useState(false);
 
   return (
@@ -26,6 +27,7 @@ export const RepoSearchContextWrapper = () => {
         searchValue, setSearchValue,
         sortOption, setSortOption,
         searchResults, setSearchResults,
+        sortByPushedAt, setSortByPushedAt,
         searchResultLanguages, setSearchResultLanguages,
         selectedSearchResultLanguage, setSelectedSearchResultLanguage,
         isLoadingRepos, setIsLoadingRepos

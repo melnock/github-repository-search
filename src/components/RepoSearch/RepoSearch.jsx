@@ -10,7 +10,7 @@ import {RepoSearchContext} from "../../contextProviders/RepoSearchContextProvide
 const RepoSearch = () => {
   const [searchError, setSearchError] = useState(null);
   const {searchValue, sortOption, setSearchValue,
-    searchResults, setSearchResults,
+    searchResults, setSearchResults, sortByPushedAt,
     setSearchResultLanguages, selectedSearchResultLanguage,
     setSelectedSearchResultLanguage, setIsLoadingRepos
   } = useContext(RepoSearchContext);
@@ -43,11 +43,25 @@ const RepoSearch = () => {
   };
 
   const filterSearchResultsByLanguage = () => {
+  let searchResultsFiltered = searchResults
     if (selectedSearchResultLanguage) {
-      return searchResults.filter(result => result.language === selectedSearchResultLanguage);
-    } else {
-      return searchResults;
+      searchResultsFiltered =  searchResults.filter(result => result.language === selectedSearchResultLanguage);
     }
+
+    if (sortByPushedAt !== 'None') {
+      searchResultsFiltered.sort((a, b) => {
+        const dateA = new Date(a.pushed_at)
+        const dateB = new Date(b.pushed_at)
+        if (sortByPushedAt === 'Most Recent') {
+          return dateB - dateA
+        }
+        if (sortByPushedAt === 'Longest Without Love') {
+          return dateA - dateB
+        }
+      })
+    }
+
+    return searchResultsFiltered;
   };
 
   const getSearchResults = async (searchValueOverride = null) => {
@@ -85,8 +99,7 @@ const RepoSearch = () => {
         getSearchResults={getSearchResults}
         searchError={searchError}
       />
-      {Boolean(searchResults.length) && <RepoFilter/>
-      }
+      {Boolean(searchResults.length) && <RepoFilter/>}
       <RepoSearchBody searchResults={filterSearchResultsByLanguage()}/>
     </div>
   );
